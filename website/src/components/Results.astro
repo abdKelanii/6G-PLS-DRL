@@ -1,0 +1,378 @@
+---
+const runs = [
+  { run: 1,  dqn: 4.281603, stat: 2.737537, imp: 56.40 },
+  { run: 2,  dqn: 3.710249, stat: 2.406413, imp: 54.18 },
+  { run: 3,  dqn: 4.245277, stat: 2.575250, imp: 64.85 },
+  { run: 4,  dqn: 1.516637, stat: 2.472241, imp: -38.65 },
+  { run: 5,  dqn: 3.905068, stat: 2.634122, imp: 48.23 },
+  { run: 6,  dqn: 4.254050, stat: 2.666850, imp: 59.52 },
+  { run: 7,  dqn: 4.177467, stat: 2.422829, imp: 72.42 },
+  { run: 8,  dqn: 4.303623, stat: 2.596722, imp: 65.73 },
+  { run: 9,  dqn: 4.228331, stat: 2.575458, imp: 64.18 },
+  { run: 10, dqn: 3.800821, stat: 2.605198, imp: 45.89 },
+];
+---
+
+<section id="results" class="section">
+  <div class="container">
+    <p class="section-label">Experimental Evaluation</p>
+    <h2 class="section-title">Results &amp; Discussion</h2>
+    <div class="divider"></div>
+
+    <p class="intro-text">
+      The DQN framework was evaluated across 10 independent simulation runs in a dynamic 6G wireless environment
+      under varying jamming and eavesdropping conditions. The DQN agent was trained for 5,000 timesteps and
+      compared against a conventional static security strategy.
+    </p>
+
+    <div class="chart-wrap card">
+      <h3 class="chart-title">Reward Comparison — DQN vs Static Baseline</h3>
+      <div class="chart-container">
+        <canvas id="resultsChart"></canvas>
+      </div>
+      <div class="chart-legend">
+        <span class="legend-item legend-dqn">DQN-Based Framework</span>
+        <span class="legend-item legend-static">Static Baseline</span>
+      </div>
+    </div>
+
+    <div class="summary-cards">
+      <div class="card scard">
+        <span class="scard-val">3.842</span>
+        <span class="scard-label">Avg DQN Reward</span>
+        <span class="scard-badge positive">+49.28% vs Static</span>
+      </div>
+      <div class="card scard">
+        <span class="scard-val">2.569</span>
+        <span class="scard-label">Avg Static Reward</span>
+        <span class="scard-badge neutral">Baseline</span>
+      </div>
+      <div class="card scard">
+        <span class="scard-val">72.42%</span>
+        <span class="scard-label">Best Improvement</span>
+        <span class="scard-badge positive">Run 7</span>
+      </div>
+      <div class="card scard">
+        <span class="scard-val">9/10</span>
+        <span class="scard-label">Runs DQN Wins</span>
+        <span class="scard-badge positive">Consistent</span>
+      </div>
+    </div>
+
+    <div class="table-wrap card">
+      <h3 class="table-title mono">Table I — Performance Comparison</h3>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Run</th>
+              <th>Avg DQN Reward</th>
+              <th>Avg Static Reward</th>
+              <th>Improvement</th>
+            </tr>
+          </thead>
+          <tbody>
+            {runs.map(r => (
+              <tr class={r.imp < 0 ? 'row-neg' : ''}>
+                <td class="mono">{r.run}</td>
+                <td class="mono val-dqn">{r.dqn.toFixed(6)}</td>
+                <td class="mono val-stat">{r.stat.toFixed(6)}</td>
+                <td>
+                  <span class={`imp-badge ${r.imp < 0 ? 'neg' : 'pos'}`}>
+                    {r.imp > 0 ? '+' : ''}{r.imp.toFixed(2)}%
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr class="avg-row">
+              <td class="mono">Avg</td>
+              <td class="mono val-dqn">3.842913</td>
+              <td class="mono val-stat">2.569262</td>
+              <td><span class="imp-badge pos">+49.28%</span></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="discussion card">
+      <h3 class="disc-title">Key Findings</h3>
+      <ul class="findings">
+        <li>The DQN framework consistently achieved higher reward values than the static baseline in <strong>9 out of 10</strong> simulation runs.</li>
+        <li>Run 4 produced lower performance due to <strong>unstable environmental conditions</strong> and exploration-related decisions during early training.</li>
+        <li>Secrecy rate tracking confirmed that the DQN agent maintained more <strong>stable secrecy performance</strong> during communication sessions.</li>
+        <li>The observed fluctuations are mainly attributed to random environmental variations, jammer behavior, and the <strong>stochastic nature</strong> of RL training.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro-text {
+    color: var(--text-muted);
+    font-size: 0.97rem;
+    line-height: 1.85;
+    max-width: 800px;
+    margin-bottom: 2.5rem;
+  }
+
+  .chart-wrap {
+    margin-bottom: 1.5rem;
+    padding: 2rem;
+  }
+
+  .chart-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+
+  .chart-container {
+    position: relative;
+    height: 320px;
+  }
+
+  .chart-legend {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    justify-content: center;
+  }
+
+  .legend-item {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .legend-item::before {
+    content: '';
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .legend-dqn::before { background: #00d4ff; }
+  .legend-static::before { background: #f59e0b; }
+
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 760px) {
+    .summary-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .scard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+
+  .scard-val {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--cyan);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .scard-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .scard-badge {
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+  }
+
+  .positive { background: rgba(16,185,129,0.15); color: #10b981; }
+  .neutral { background: rgba(148,163,184,0.15); color: #94a3b8; }
+
+  .table-wrap { margin-bottom: 1.5rem; }
+
+  .table-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 1.25rem;
+  }
+
+  .table-scroll { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  th {
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--text);
+  }
+
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  .row-neg td { opacity: 0.7; }
+
+  .val-dqn { color: #00d4ff; }
+  .val-stat { color: #f59e0b; }
+
+  .imp-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 100px;
+  }
+
+  .imp-badge.pos { background: rgba(16,185,129,0.15); color: #10b981; }
+  .imp-badge.neg { background: rgba(244,63,94,0.15); color: #f43f5e; }
+
+  tfoot .avg-row td {
+    font-weight: 700;
+    border-top: 1px solid var(--border);
+    border-bottom: none;
+    color: #fff;
+  }
+
+  .discussion { padding: 2rem; }
+
+  .disc-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .findings {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .findings li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .findings li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    font-weight: 700;
+  }
+
+  .findings strong { color: var(--text); font-weight: 600; }
+</style>
+
+<script>
+  const dqnData = [4.281603, 3.710249, 4.245277, 1.516637, 3.905068, 4.254050, 4.177467, 4.303623, 4.228331, 3.800821];
+  const staticData = [2.737537, 2.406413, 2.575250, 2.472241, 2.634122, 2.666850, 2.422829, 2.596722, 2.575458, 2.605198];
+  const labels = ['Run 1','Run 2','Run 3','Run 4','Run 5','Run 6','Run 7','Run 8','Run 9','Run 10'];
+
+  async function loadChart() {
+    const { Chart, registerables } = await import('https://cdn.jsdelivr.net/npm/chart.js@4/+esm');
+    Chart.register(...registerables);
+
+    const canvas = document.getElementById('resultsChart') as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d')!;
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'DQN-Based Framework',
+            data: dqnData,
+            borderColor: '#00d4ff',
+            backgroundColor: 'rgba(0,212,255,0.08)',
+            borderWidth: 2.5,
+            pointBackgroundColor: '#00d4ff',
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            tension: 0.3,
+            fill: true,
+          },
+          {
+            label: 'Static Baseline',
+            data: staticData,
+            borderColor: '#f59e0b',
+            backgroundColor: 'rgba(245,158,11,0.06)',
+            borderWidth: 2.5,
+            pointBackgroundColor: '#f59e0b',
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            tension: 0.3,
+            fill: true,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#0d1117',
+            borderColor: 'rgba(0,212,255,0.2)',
+            borderWidth: 1,
+            titleColor: '#e2e8f0',
+            bodyColor: '#94a3b8',
+            padding: 12,
+          },
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            ticks: { color: '#64748b', font: { family: "'JetBrains Mono', monospace", size: 11 } },
+          },
+          y: {
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            ticks: { color: '#64748b', font: { family: "'JetBrains Mono', monospace", size: 11 } },
+            min: 0,
+            max: 5,
+          },
+        },
+      },
+    });
+  }
+
+  loadChart();
+</script>

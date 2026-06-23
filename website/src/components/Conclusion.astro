@@ -1,0 +1,126 @@
+---
+---
+<section id="conclusion" class="section">
+  <div class="container">
+    <p class="section-label">Summary</p>
+    <h2 class="section-title">Conclusion</h2>
+    <div class="divider"></div>
+
+    <div class="conc-layout">
+      <div class="card conc-main">
+        <p>
+          This paper presented a Deep Reinforcement Learning-based physical layer security framework for future
+          6G wireless communication systems. The proposed framework utilized the <strong>Deep Q-Network (DQN)
+          algorithm</strong> to dynamically optimize transmission strategies in the presence of jamming and
+          eavesdropping attacks.
+        </p>
+        <p>
+          The wireless communication environment was modeled as a <strong>Markov Decision Process (MDP)</strong>,
+          enabling the DQN agent to continuously learn adaptive security strategies through interaction with
+          the environment. The framework dynamically adjusted beamforming direction, transmission power
+          allocation, and artificial noise injection to improve secrecy performance and communication robustness.
+        </p>
+        <p>
+          Experimental evaluation results demonstrated that the proposed adaptive framework significantly
+          outperformed conventional static security approaches. Across ten simulation runs, the DQN-based
+          framework achieved an average performance improvement of approximately <span class="cyan-bold">49.28%</span>,
+          while maintaining stable secrecy-oriented communication performance under dynamic wireless conditions.
+        </p>
+        <p>
+          The obtained results indicate that Deep Reinforcement Learning can play an important role in developing
+          intelligent and autonomous physical layer security mechanisms for future 6G communication systems.
+        </p>
+      </div>
+
+      <div class="sidebar">
+        <div class="card future-card">
+          <h3 class="card-sub mono">Future Work</h3>
+          <ul class="future-list">
+            <li>Integration of more advanced DRL algorithms</li>
+            <li>Multi-agent communication scenarios</li>
+            <li>Large-scale realistic 6G network environments</li>
+            <li>More realistic wireless channel models</li>
+            <li>RIS-assisted secure communication scenarios</li>
+          </ul>
+        </div>
+
+        <div class="card limit-card">
+          <h3 class="card-sub mono">Limitations</h3>
+          <ul class="limit-list">
+            <li>Simplified wireless simulation environment</li>
+            <li>Single-agent DQN architecture</li>
+            <li>Non-RIS scenario only</li>
+            <li>Limited attack model coverage</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .conc-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  @media (max-width: 800px) {
+    .conc-layout { grid-template-columns: 1fr; }
+  }
+
+  .conc-main p {
+    color: var(--text-muted);
+    font-size: 0.97rem;
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .conc-main p:last-child { margin-bottom: 0; }
+  .conc-main strong { color: var(--text); font-weight: 600; }
+
+  .cyan-bold { color: var(--cyan); font-weight: 700; }
+
+  .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+
+  .card-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 0.85rem;
+  }
+
+  .future-list, .limit-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .future-list li, .limit-list li {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    padding-left: 1.1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .future-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    font-size: 0.65rem;
+    top: 0.18rem;
+  }
+
+  .limit-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+</style>

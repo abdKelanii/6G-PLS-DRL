@@ -1,0 +1,152 @@
+---
+const keywords = [
+  "6G Communications",
+  "Physical Layer Security",
+  "Deep Reinforcement Learning (DRL)",
+  "Deep Q-Network (DQN)",
+  "Beamforming",
+  "Anti-Jamming",
+  "Eavesdropping",
+  "Wireless Security",
+  "Artificial Intelligence",
+  "Secrecy Rate",
+];
+---
+
+<section id="abstract" class="section">
+  <div class="container">
+    <p class="section-label">Overview</p>
+    <h2 class="section-title">Abstract</h2>
+    <div class="divider"></div>
+
+    <div class="abstract-layout">
+      <div class="abstract-text card">
+        <p>
+          Sixth-generation (6G) wireless communication systems are expected to support ultra-high data rates,
+          ultra-low latency, and massive connectivity. However, the dynamic nature of wireless communication
+          introduces major physical layer security challenges, including jamming and eavesdropping attacks.
+        </p>
+        <p>
+          This paper proposes a <strong>Deep Reinforcement Learning (DRL)-based adaptive security framework</strong>
+          using the Deep Q-Network (DQN) algorithm to mitigate physical layer vulnerabilities in 6G communication
+          systems. The proposed framework dynamically optimizes transmission parameters such as beamforming
+          direction, transmit power allocation, and artificial noise injection to maximize secrecy rate and
+          reduce the impact of adversarial attacks in real time.
+        </p>
+        <p>
+          The wireless environment is modeled as a <strong>Markov Decision Process (MDP)</strong>, where the DQN
+          agent learns optimal security strategies through continuous interaction with the environment. A
+          lightweight simulation-based evaluation compares adaptive DRL-based strategies with conventional
+          static approaches, achieving an average performance improvement of <span class="highlight">49.28%</span>.
+        </p>
+      </div>
+
+      <div class="sidebar">
+        <div class="card kw-card">
+          <h3 class="card-label mono">Index Terms</h3>
+          <div class="kw-list">
+            {keywords.map(k => <span class="tag">{k}</span>)}
+          </div>
+        </div>
+
+        <div class="card stats-card">
+          <h3 class="card-label mono">Key Metrics</h3>
+          <div class="stats-list">
+            <div class="stat">
+              <span class="stat-val">49.28<span class="stat-unit">%</span></span>
+              <span class="stat-desc">Avg. Performance Improvement</span>
+            </div>
+            <div class="stat">
+              <span class="stat-val">3.84</span>
+              <span class="stat-desc">Avg. DQN Reward</span>
+            </div>
+            <div class="stat">
+              <span class="stat-val">5,000</span>
+              <span class="stat-desc">Training Timesteps</span>
+            </div>
+            <div class="stat">
+              <span class="stat-val">10</span>
+              <span class="stat-desc">Simulation Runs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .abstract-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .abstract-layout { grid-template-columns: 1fr; }
+  }
+
+  .abstract-text p {
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .abstract-text p:last-child { margin-bottom: 0; }
+
+  .abstract-text strong { color: var(--text); font-weight: 600; }
+
+  .highlight { color: var(--cyan); font-weight: 700; }
+
+  .sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .card-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 1rem;
+  }
+
+  .kw-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .stat-val {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--cyan);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-unit {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .stat-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+</style>

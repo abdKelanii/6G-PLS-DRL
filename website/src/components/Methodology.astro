@@ -1,0 +1,295 @@
+---
+const contributions = [
+  {
+    num: "01",
+    title: "DQN-Based Adaptive Framework",
+    desc: "Proposes a Deep Q-Network based adaptive framework for enhancing physical layer security in 6G communication systems.",
+  },
+  {
+    num: "02",
+    title: "Dynamic Attack Modeling",
+    desc: "Models dynamic attack scenarios including jamming and eavesdropping attacks in a realistic wireless environment.",
+  },
+  {
+    num: "03",
+    title: "Adaptive Transmission Optimization",
+    desc: "Enhances communication secrecy using adaptive beamforming, transmit power optimization, and artificial noise injection.",
+  },
+  {
+    num: "04",
+    title: "Comparative Evaluation",
+    desc: "Provides a lightweight prototype evaluation comparing adaptive DRL-based strategies with conventional static methods.",
+  },
+];
+
+const actions = [
+  { id: "0", label: "Increase Power", icon: "↑", desc: "Boost signal strength to overcome jamming" },
+  { id: "1", label: "Decrease Power", icon: "↓", desc: "Reduce power to minimize interference exposure" },
+  { id: "2", label: "Beam Left", icon: "◀", desc: "Redirect beamforming direction away from attacker" },
+  { id: "3", label: "Beam Right", icon: "▶", desc: "Steer beam toward legitimate user" },
+  { id: "4", label: "Inject Noise", icon: "≋", desc: "Add artificial noise to confuse eavesdroppers" },
+];
+---
+
+<section id="methodology" class="section">
+  <div class="container">
+    <p class="section-label">System Design</p>
+    <h2 class="section-title">Methodology</h2>
+    <div class="divider"></div>
+
+    <div class="contributions">
+      <h3 class="sub-title">Main Contributions</h3>
+      <div class="contrib-grid">
+        {contributions.map(c => (
+          <div class="contrib-card card">
+            <span class="contrib-num mono">{c.num}</span>
+            <h4>{c.title}</h4>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h3 class="sub-title">System Model</h3>
+        <div class="card sys-card">
+          <p class="sys-text">
+            The wireless environment consists of a <strong>Base Station (BS)</strong>, a legitimate mobile user,
+            and one or more malicious adversaries. Adversaries operate as either <em>eavesdroppers</em> or
+            <em>jammers</em>. The BS communicates using highly directional beamforming while the DRL agent
+            continuously adapts its strategy.
+          </p>
+          <div class="mdp-block">
+            <h4 class="mdp-title mono">MDP Formulation</h4>
+            <div class="mdp-row">
+              <span class="mdp-label">State Space</span>
+              <code>S = &#123; CSI, SINR, P<sub>j</sub> &#125;</code>
+            </div>
+            <div class="mdp-row">
+              <span class="mdp-label">Action Space</span>
+              <code>A = &#123; P<sub>t</sub>, w<sub>t</sub>, N<sub>t</sub> &#125;</code>
+            </div>
+            <div class="mdp-row">
+              <span class="mdp-label">Secrecy Rate</span>
+              <code>R<sub>s</sub> = [C<sub>b</sub> − C<sub>e</sub>]<sup>+</sup></code>
+            </div>
+            <div class="mdp-row">
+              <span class="mdp-label">Reward</span>
+              <code>R<sub>t</sub> = αR<sub>s</sub> − βE − γBER</code>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="sub-title">Agent Actions</h3>
+        <div class="actions-list">
+          {actions.map(a => (
+            <div class="action-row card">
+              <span class="action-icon mono">{a.icon}</span>
+              <div>
+                <span class="action-label">{a.label}</span>
+                <span class="action-desc">{a.desc}</span>
+              </div>
+              <span class="action-id mono">A{a.id}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="dqn-section">
+      <h3 class="sub-title">DQN Architecture &amp; Training</h3>
+      <div class="dqn-grid">
+        <div class="card dqn-card">
+          <div class="dqn-icon">🧠</div>
+          <h4>Network Architecture</h4>
+          <p>Multilayer Perceptron (MLP) with two hidden layers and ReLU activation functions.</p>
+        </div>
+        <div class="card dqn-card">
+          <div class="dqn-icon">⚙️</div>
+          <h4>Optimizer</h4>
+          <p>Adam optimizer with learning rate <span class="mono cyan">0.001</span> and discount factor γ = <span class="mono cyan">0.99</span>.</p>
+        </div>
+        <div class="card dqn-card">
+          <div class="dqn-icon">🔁</div>
+          <h4>Experience Replay</h4>
+          <p>Replay buffer of <span class="mono cyan">10,000</span> samples and a batch size of <span class="mono cyan">32</span>.</p>
+        </div>
+        <div class="card dqn-card">
+          <div class="dqn-icon">🎯</div>
+          <h4>Exploration</h4>
+          <p>Epsilon-greedy strategy to balance exploration and exploitation during training.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sub-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.25rem;
+  }
+
+  .contrib-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .contrib-card {
+    position: relative;
+    padding-top: 1.5rem;
+  }
+
+  .contrib-num {
+    font-size: 0.7rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .contrib-card h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+
+  .contrib-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  @media (max-width: 760px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  .sys-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .sys-text strong { color: var(--text); }
+
+  .mdp-block {
+    background: rgba(0,212,255,0.04);
+    border: 1px solid rgba(0,212,255,0.12);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+  }
+
+  .mdp-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 0.75rem;
+  }
+
+  .mdp-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.85rem;
+  }
+
+  .mdp-row:last-child { border-bottom: none; }
+
+  .mdp-label {
+    color: var(--text-muted);
+    min-width: 100px;
+    font-size: 0.8rem;
+  }
+
+  .mdp-row code {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text);
+    font-size: 0.85rem;
+  }
+
+  .actions-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .action-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .action-icon {
+    font-size: 1.1rem;
+    color: var(--cyan);
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .action-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.15rem;
+  }
+
+  .action-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .action-id {
+    margin-left: auto;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .dqn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .dqn-card { text-align: center; padding: 2rem 1.5rem; }
+
+  .dqn-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .dqn-card h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  .dqn-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .cyan { color: var(--cyan); }
+</style>

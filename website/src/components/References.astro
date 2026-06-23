@@ -1,0 +1,113 @@
+---
+const refs = [
+  {
+    num: "1",
+    authors: "H. Mahmoud, T. Ismail, T. Baiyekusi, and M. Idrissi",
+    title: "Advanced security framework for 6G networks: Integrating deep learning and physical layer security",
+    venue: "Network",
+    details: "vol. 4, pp. 453–467, 2024",
+    doi: "10.3390/network4040023",
+  },
+  {
+    num: "2",
+    authors: "M. M. Kamal, S. Z. U. Abideen, M. A. Al-Khasawneh, A. Alabrah, R. S. A. Larik, and M. I. Marwat",
+    title: "Optimizing secure multi-user ISAC systems with STAR-RIS: A deep reinforcement learning approach for 6G networks",
+    venue: "IEEE Access",
+    details: "2025",
+    doi: "10.1109/ACCESS.2025.3542607",
+  },
+  {
+    num: "3",
+    authors: "R. Lin, H. Qiu, J. Wang, Z. Zhang, L. Wu, and F. Shu",
+    title: "Physical-layer security enhancement in energy-harvesting-based cognitive Internet of Things: A GAN-powered deep reinforcement learning approach",
+    venue: "IEEE Internet of Things Journal",
+    details: "vol. 11, no. 3, pp. 4899–4913, Feb. 2024",
+    doi: null,
+  },
+  {
+    num: "4",
+    authors: "X. Lu, L. Xiao, P. Li, X. Ji, C. Xu, S. Yu, and W. Zhuang",
+    title: "Reinforcement learning-based physical cross-layer security and privacy in 6G",
+    venue: "IEEE Communications Surveys & Tutorials",
+    details: "2023",
+    doi: null,
+  },
+  {
+    num: "5",
+    authors: "N. Belgacem and W. Belgacem",
+    title: "Reinforcement learning-based relay and RIS optimization for covert 6G ground station communications",
+    venue: "International Journal of Satellite Communications and Networking",
+    details: "vol. 44, pp. 171–183, 2026",
+    doi: null,
+  },
+  {
+    num: "6",
+    authors: "M. Mitev, A. Chorti, H. V. Poor, and G. P. Fettweis",
+    title: "What physical layer security can do for 6G security",
+    venue: "IEEE Open Journal of the Communications Society",
+    details: "vol. 4, pp. 375–388, 2023",
+    doi: null,
+  },
+];
+---
+
+<section id="references" class="section">
+  <div class="container">
+    <p class="section-label">Bibliography</p>
+    <h2 class="section-title">References</h2>
+    <div class="divider"></div>
+
+    <div class="refs-list">
+      {refs.map(r => (
+        <div class="ref-item card">
+          <span class="ref-num mono">[{r.num}]</span>
+          <div class="ref-body">
+            <span class="ref-authors">{r.authors},</span>
+            <span class="ref-title">"{r.title},"</span>
+            <span class="ref-venue">{r.venue},</span>
+            <span class="ref-details">{r.details}.</span>
+            {r.doi && (
+              <span class="ref-doi">
+                DOI: <span class="mono">{r.doi}</span>
+              </span>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .refs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ref-item {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .ref-num {
+    font-size: 0.8rem;
+    color: var(--cyan);
+    flex-shrink: 0;
+    min-width: 28px;
+    padding-top: 0.1rem;
+  }
+
+  .ref-body {
+    font-size: 0.85rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+  }
+
+  .ref-authors { font-weight: 500; color: var(--text); margin-right: 0.25rem; }
+  .ref-title { font-style: italic; margin-right: 0.25rem; }
+  .ref-venue { color: var(--cyan); font-weight: 500; margin-right: 0.25rem; }
+  .ref-doi { display: block; font-size: 0.75rem; color: var(--text-muted); opacity: 0.7; margin-top: 0.15rem; }
+</style>

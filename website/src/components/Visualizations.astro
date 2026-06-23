@@ -1,0 +1,296 @@
+---
+const charts = [
+  {
+    id: "dqn-reward",
+    title: "DQN Reward Curve",
+    cell: "Cell 6",
+    desc: "Reward accumulated by the DQN agent across 5,000 training timesteps. The curve shows the agent progressively learning to maximize secrecy-oriented reward as it interacts with the simulated 6G environment.",
+    src: "/charts/dqn-reward-curve.png",
+    alt: "DQN Reward Curve over 5000 training steps",
+  },
+  {
+    id: "dqn-vs-static",
+    title: "DQN vs Static Baseline",
+    cell: "Cell 8",
+    desc: "Direct comparison of the adaptive DQN framework against the conventional static security strategy across all simulation steps. The DQN method consistently maintains higher average reward, demonstrating superior adaptability under dynamic adversarial conditions.",
+    src: "/charts/dqn-vs-static.png",
+    alt: "DQN vs Static Security Performance comparison chart",
+  },
+  {
+    id: "secrecy-rate",
+    title: "Secrecy Rate Performance",
+    cell: "Cell 12",
+    desc: "Secrecy rate tracked over 1,000 post-training simulation steps using the trained DQN policy. The DQN agent maintains a positive secrecy rate, indicating that legitimate channel capacity consistently exceeds the eavesdropper's channel capacity.",
+    src: "/charts/secrecy-rate.png",
+    alt: "Secrecy Rate performance over simulation steps",
+  },
+  {
+    id: "network-static",
+    title: "Static Network Visualization",
+    cell: "Cell 13",
+    desc: "Spatial layout of the 6G secure communication environment. Shows the Base Station (BS), the legitimate user, the eavesdropper (Eve), and the jammer — along with the adaptive beamforming direction steered toward the legitimate receiver.",
+    src: "/charts/network-static.png",
+    alt: "6G Secure Communication Environment — static network visualization",
+    featured: true,
+  },
+  {
+    id: "network-dynamic",
+    title: "Dynamic Network Visualization",
+    cell: "Cell 14",
+    desc: "Animated simulation showing the jammer and eavesdropper positions shifting randomly each step, simulating real-world mobile adversaries. The DQN agent continuously adjusts its beamforming strategy in response to these movements.",
+    src: "/charts/network-dynamic.gif",
+    alt: "Dynamic 6G Security Environment — animated mobile adversary simulation",
+    animated: true,
+  },
+];
+---
+
+<section id="visualizations" class="section">
+  <div class="container">
+    <p class="section-label">Simulation Outputs</p>
+    <h2 class="section-title">Visualizations</h2>
+    <div class="divider"></div>
+
+    <p class="intro-text">
+      All charts and network diagrams are generated directly from the Python simulation. The DQN agent was
+      trained and evaluated in a custom <span class="cyan">Gymnasium</span> environment modeling a 6G wireless
+      channel under active jamming and eavesdropping threats.
+    </p>
+
+    <!-- Featured: Network Visualization -->
+    {charts.filter(c => c.featured).map(c => (
+      <div class="featured-chart card" id={c.id}>
+        <div class="feat-meta">
+          <span class="cell-tag mono">{c.cell}</span>
+          <h3 class="chart-title">{c.title}</h3>
+          <p class="chart-desc">{c.desc}</p>
+        </div>
+        <div class="feat-img-wrap">
+          <img src={c.src} alt={c.alt} class="chart-img feat-img" loading="lazy" />
+        </div>
+      </div>
+    ))}
+
+    <!-- Grid: remaining charts -->
+    <div class="charts-grid">
+      {charts.filter(c => !c.featured).map(c => (
+        <div class="chart-card card" id={c.id}>
+          <div class="chart-header">
+            <span class="cell-tag mono">{c.cell}</span>
+            <h3 class="chart-title-sm">{c.title}</h3>
+          </div>
+          <div class="img-wrap">
+            {c.animated && <span class="gif-badge mono">GIF</span>}
+            <img src={c.src} alt={c.alt} class="chart-img" loading="lazy" />
+          </div>
+          <p class="chart-desc-sm">{c.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+  <img id="lb-img" src="" alt="" class="lb-img" />
+  <p id="lb-caption" class="lb-caption"></p>
+</div>
+
+<style>
+  .intro-text {
+    color: var(--text-muted);
+    font-size: 0.97rem;
+    line-height: 1.85;
+    max-width: 750px;
+    margin-bottom: 2.5rem;
+  }
+
+  .cyan { color: var(--cyan); font-weight: 500; }
+
+  /* Featured */
+  .featured-chart {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 2.5rem;
+  }
+
+  @media (max-width: 760px) {
+    .featured-chart { grid-template-columns: 1fr; }
+  }
+
+  .cell-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .chart-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.75rem;
+  }
+
+  .chart-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .feat-img-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    cursor: zoom-in;
+  }
+
+  .feat-img { width: 100%; display: block; }
+
+  /* Grid */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .chart-card { padding: 1.5rem; }
+
+  .chart-header { margin-bottom: 1rem; }
+
+  .chart-title-sm {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 0.3rem;
+  }
+
+  .img-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
+    cursor: zoom-in;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+
+  .gif-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 2;
+    background: rgba(0,212,255,0.15);
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+  }
+
+  .img-wrap:hover { border-color: rgba(0,212,255,0.4); }
+
+  .chart-img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s;
+    background: #fff;
+  }
+
+  .img-wrap:hover .chart-img { transform: scale(1.02); }
+
+  .chart-desc-sm {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(10px);
+    z-index: 200;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lb-img {
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    object-fit: contain;
+    background: #fff;
+  }
+
+  .lb-caption {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .lb-close {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--border);
+    color: #fff;
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 201;
+  }
+
+  .lb-close:hover { background: rgba(255,255,255,0.2); }
+</style>
+
+<script>
+  const lightbox = document.getElementById('lightbox')!;
+  const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+  const lbCaption = document.getElementById('lb-caption')!;
+  const lbClose = document.getElementById('lb-close')!;
+
+  document.querySelectorAll('.img-wrap, .feat-img-wrap').forEach(wrap => {
+    wrap.addEventListener('click', () => {
+      const img = wrap.querySelector('img') as HTMLImageElement;
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbCaption.textContent = img.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLb() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lbClose.addEventListener('click', closeLb);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLb(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+</script>
